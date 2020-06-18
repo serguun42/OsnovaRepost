@@ -1,5 +1,5 @@
 # OsnovaRepost
-Userscript for reposting for Osnova
+Userscript for reposting on Osnova
 
 
 ## Main File

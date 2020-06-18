@@ -1,5 +1,5 @@
-# OsnovaDarkTheme
-Userscript adding dark theme Osnova. With multiple custom subthemes and modules
+# OsnovaRepost
+Userscript for reposting for Osnova
 
 
 ## Main File

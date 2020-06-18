@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Osnova Repost
 // @website      https://serguun42.ru/
-// @version      1.1.0-R (2020-06-18)
+// @version      1.2.1-R (2020-06-19)
 // @author       serguun42
 // @icon         https://tjournal.ru/static/build/tjournal.ru/favicons/favicon.ico
 // @match        https://tjournal.ru/*
@@ -214,6 +214,12 @@ GlobalWaitForElement(".main_menu__auth").then(() => {
 
 
 		<div class="repost-layout__list__subheader">Выбор подсайта/блога</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" data-serguun42-repost-mdl>
+			<input class="mdl-textfield__input" type="text" id="repost-custom-subsite-field">
+			<label class="mdl-textfield__label" for="repost-custom-subsite-field">ID подсайта</label>
+		</div>
+		<div class="repost-layout__list__subheader">или</div>
+		
 		<div id="repost-layout__list__subsite-selector"></div>
 
 		<div id="repost-layout__do-method-btn" class="mdl-js-button mdl-js-ripple-effect" data-serguun42-repost-mdl>Выполнить запрос с выбранным подсайтом</div>
@@ -288,7 +294,7 @@ GlobalWaitForElement(".main_menu__auth").then(() => {
 							};
 
 
-							GlobalAddStyle(`https://${RESOURCES_DOMAIN}/tampermonkey/osnova-repost/final.css?id=${userID}&name=${encodeURIComponent(userName)}&site=${SITE}&version=1.1.0`, "osnova");
+							GlobalAddStyle(`https://${RESOURCES_DOMAIN}/tampermonkey/osnova-repost/final.css?id=${userID}&name=${encodeURIComponent(userName)}&site=${SITE}&version=1.2.1`, "osnova");
 
 
 							localStorage.tokenForReposts = token;
@@ -300,11 +306,12 @@ GlobalWaitForElement(".main_menu__auth").then(() => {
 								onload: (response) => {
 									if (response.status !== 200) return alert("Не могу получить список подсайтов");
 
+									/** @type {{name: string, id: number, url: string}[]} */
 									let subsites = [];
-									
+
 									try {
 										subsites = JSON.parse(response.response).result.map((subsite) => {
-											return { name: subsite.name, id: subsite.id };
+											return { name: subsite.name, id: subsite.id, url: subsite.url };
 										});
 									} catch (e) {
 										return;
@@ -355,12 +362,21 @@ GlobalWaitForElement(".main_menu__auth").then(() => {
 										if (!method) return alert("Не указано, что делать: создавать или удалять");
 
 
-										let destination = "";
-										document.querySelectorAll(`[name="repost-select"]`).forEach((destinationRadio) => {
-											if (destinationRadio.checked) {
-												destination = parseInt(destinationRadio.getAttribute("value"));
-											};
-										});
+										let destination = "",
+											customSubsite = document.getElementById("repost-custom-subsite-field").value;
+
+										if (!!customSubsite) {
+											if (!isNaN(parseInt(customSubsite)))
+												destination = parseInt(customSubsite);
+											else
+												return alert("Вы вставили неправильный ID подсайта");
+										} else {
+											document.querySelectorAll(`[name="repost-select"]`).forEach((destinationRadio) => {
+												if (destinationRadio.checked) {
+													destination = parseInt(destinationRadio.getAttribute("value"));
+												};
+											});
+										};
 
 										if (!destination) return alert("Не указано, куда делать репост");
 

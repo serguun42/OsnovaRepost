@@ -1,0 +1,44 @@
+<div id="repost-layout__header">Репосты</div>
+<div class="repost-layout__list">
+	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" data-serguun42-repost-mdl>
+		<input class="mdl-textfield__input" type="text" id="repost-token-field">
+		<label class="mdl-textfield__label" for="repost-token-field">Токен</label>
+	</div>
+</div>
+<div class="repost-layout__list">
+	<div id="repost-layout__chech-token-btn" class="mdl-js-button mdl-js-ripple-effect" data-serguun42-repost-mdl>Проверить токен</div>
+</div>
+
+
+<div id="repost-layout__rest" class="is-hidden">
+	<div id="repost-layout__rest__obfuscator"></div>
+
+
+	<ul id="repost-layout__list">
+		<div class="repost-layout__list__subheader">Что делать</div>
+		<li class="repost-layout__list__item">
+			<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="repost-create" data-serguun42-repost-mdl>
+				<input type="radio" id="repost-create" class="mdl-radio__button" name="repost-method" value="create" checked>
+				<span class="mdl-radio__label">Сделать репост</span>
+			</label>
+		</li>
+		<li class="repost-layout__list__item">
+			<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="repost-remove" data-serguun42-repost-mdl>
+				<input type="radio" id="repost-remove" class="mdl-radio__button" name="repost-method" value="remove">
+				<span class="mdl-radio__label">Удалить репост</span>
+			</label>
+		</li>
+
+
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" data-serguun42-repost-mdl>
+			<input class="mdl-textfield__input" type="text" id="repost-post-id-field">
+			<label class="mdl-textfield__label" for="repost-post-id-field">ID поста для репоста</label>
+		</div>
+
+
+		<div class="repost-layout__list__subheader">Выбор подсайта/блога</div>
+		<div id="repost-layout__list__subsite-selector"></div>
+
+		<div id="repost-layout__do-method-btn" class="mdl-js-button mdl-js-ripple-effect" data-serguun42-repost-mdl>Выполнить запрос с выбранным подсайтом</div>
+	</ul>
+</div>
